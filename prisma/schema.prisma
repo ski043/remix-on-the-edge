@@ -1,0 +1,155 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model car {
+  id                   String      @id @default(uuid())
+  marke                String
+  modell               String
+  modellvariante       String
+  erstzulassung        String
+  preis                Int
+  kilometerstand       Int
+  getriebe             String
+  leistung             Int
+  kraftstoff           String
+  halterAnzahl         Int
+  stadt                String
+  beschreibung         String?
+  sitze                Int
+  tueren               Int
+  aussenfarbe          String
+  metallic             String      @default("false")
+  innenausstattung     String
+  innenfarbe           String
+  unfallFahrzeug       String      @default("false")
+  nichtraucherFahrzeug String      @default("false")
+  scheckheftgepflegt   String      @default("false")
+  antriebsart          String
+  anzahlZylinder       Int
+  verhandlungsbasis    String      @default("false")
+  mwst                 String      @default("false")
+  vorname              String
+  nachname             String
+  email                String
+  land                 String
+  strasse              String
+  plz                  String
+  folderId             String
+  imgSrc               String
+  ausstattung          Austattung?
+  status               Status      @default(REVIEW)
+  created_at           DateTime    @default(now())
+  updated_at           DateTime    @updatedAt
+}
+
+model Austattung {
+  id                                String  @id @default(uuid())
+  airbagHinten                      String? @default("false")
+  kopfairbag                        String  @default("false")
+  beifahrerairbag                   String  @default("false")
+  seitenairbag                      String  @default("false")
+  fahrerairbag                      String  @default("false")
+  abstandswarner                    String  @default("false")
+  notbremsassistent                 String  @default("false")
+  berganfahrassistent               String  @default("false")
+  spurhalteassistent                String  @default("false")
+  fernlichtassistent                String  @default("false")
+  totenwinkelAssistent              String  @default("false")
+  geschwindigkeitsBegrenter         String  @default("false")
+  verkehrszeichenErkennung          String  @default("false")
+  nachtsichtAssistent               String  @default("false")
+  dreisechtigKamera                 String  @default("false")
+  einparkhilfeSensorenVorne         String  @default("false")
+  einparkhilfeKamera                String  @default("false")
+  einparkhilfeSelbstlenkendesSystem String  @default("false")
+  einparkhilfeSensorenHinten        String  @default("false")
+  allwetterreifen                   String  @default("false")
+  alufelgen                         String  @default("false")
+  raucherpaket                      String  @default("false")
+  ambientebeleuchtung               String  @default("false")
+  anhaengerkupplung                 String  @default("false")
+  reverseRad                        String  @default("false")
+  dachreling                        String  @default("false")
+  sommerreifen                      String  @default("false")
+  spoiler                           String  @default("false")
+  elektrParkbremse                  String  @default("false")
+  sportfahrwerk                     String  @default("false")
+  gepaeckraumabtrennung             String  @default("false")
+  sportpaket                        String  @default("false")
+  getoenteScheiben                  String  @default("false")
+  stahlfelgen                       String  @default("false")
+  innenspiegelAbblendbar            String  @default("false")
+  tuning                            String  @default("false")
+  winterpaket                       String  @default("false")
+  winterreiffen                     String  @default("false")
+  zweiZonenKlima                    String  @default("false")
+  dreiZonenKlima                    String  @default("false")
+  vierZonenKlima                    String  @default("false")
+  klimaanlage                       String  @default("false")
+  klimaautomatik                    String  @default("false")
+  panormadach                       String  @default("false")
+  beheizbareFrontschreibe           String  @default("false")
+  regensensor                       String  @default("false")
+  beheizbaresLenkrad                String  @default("false")
+  schaltwippen                      String  @default("false")
+  schiebedach                       String  @default("false")
+  elektrHeckklappe                  String  @default("false")
+  elektrSeitenspiegel               String  @default("false")
+  headsupDisplay                    String  @default("false")
+  lederlenkrad                      String  @default("false")
+  lichtsensor                       String  @default("false")
+  standheizung                      String  @default("false")
+  luftfederung                      String  @default("false")
+  biXbiXenonScheinwerferenon        String  @default("false")
+  blendfreiesFernlicht              String  @default("false")
+  nebelscheinwerfer                 String  @default("false")
+  kurvenlicht                       String  @default("false")
+  tagfahrlicht                      String  @default("false")
+  ledScheinwerfer                   String  @default("false")
+  xenonscheinwerfer                 String  @default("false")
+  laserlicht                        String  @default("false")
+  alarmanlage                       String  @default("false")
+  abs                               String? @default("false")
+  notrufsystem                      String  @default("false")
+  esp                               String  @default("false")
+  wegfahrsperre                     String  @default("false")
+  reifendruckKontrollsystem         String  @default("false")
+  muedigkeitswarner                 String  @default("false")
+  elektrischeSitze                  String  @default("false")
+  sitzheitung                       String  @default("false")
+  sportsitze                        String  @default("false")
+  massageSitze                      String  @default("false")
+  sitzbelueftung                    String  @default("false")
+  abstandsTempomat                  String  @default("false")
+  tempomat                          String  @default("false")
+  androidAuto                       String  @default("false")
+  sprachsteuerung                   String  @default("false")
+  appleCarplay                      String  @default("false")
+  tv                                String  @default("false")
+  radio                             String  @default("false")
+  touchscreen                       String  @default("false")
+  induktionsladenSmartphone         String  @default("false")
+  soundsystem                       String  @default("false")
+  wifiHotspot                       String  @default("false")
+  bluetooth                         String  @default("false")
+  mp3                               String  @default("false")
+  navigationsystem                  String  @default("false")
+  freisprech                        String  @default("false")
+  schluesselloseZentralverrieglung  String  @default("false")
+  zentralverreiglung                String  @default("false")
+  multifunktionsrad                 String  @default("false")
+  user                              car     @relation(fields: [carId], references: [id])
+  carId                             String  @unique
+}
+
+enum Status {
+  REVIEW
+  SOLD
+  LIVE
+}

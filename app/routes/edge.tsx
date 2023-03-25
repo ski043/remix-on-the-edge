@@ -1,4 +1,4 @@
-import type { LoaderArgs } from '@vercel/remix';
+/* import type { LoaderArgs } from '@vercel/remix';
 import { useLoaderData } from '@remix-run/react';
 
 import { Footer } from '~/components/footer';
@@ -59,3 +59,61 @@ export default function App() {
     </>
   );
 }
+ */
+
+import { json, LoaderArgs } from "@remix-run/node";
+import { Link, useLoaderData } from "@remix-run/react";
+import React from "react";
+import { db } from "~/db.server";
+import { parseVercelId } from "~/parse-vercel-id";
+
+export const config = { runtime: "edge" };
+
+export async function loader({ request }: LoaderArgs) {
+  const parsedId = parseVercelId(request.headers.get("x-vercel-id"));
+  const data = await db.car.findMany({
+    where: {
+      status: "LIVE",
+    },
+  });
+
+  return json({ data, ...parsedId });
+}
+
+const Edge = () => {
+  const { data, computeRegion, proxyRegion } = useLoaderData<typeof loader>();
+  return (
+    <>
+      <div className="grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:col-span-3 lg:gap-x-8">
+        {data.map((auto) => (
+          <Link
+            key={auto.id}
+            to={`/auto/${auto.id}`}
+            prefetch="intent"
+            rel="prefetch"
+            className="group text-sm"
+          >
+            <div className="w-full aspect-w-3 aspect-h-2 rounded-lg overflow-hidden bg-gray-100 group-hover:opacity-75">
+              <img
+                src={auto.imgSrc}
+                className="w-full h-full object-center object-cover"
+              />
+            </div>
+            <h3 className="mt-4 font-medium text-gray-900">
+              {auto.marke} {auto.modell} {auto.erstzulassung}
+            </h3>
+            <p className="mt-2 font-medium text-gray-900">
+              {new Intl.NumberFormat("de-DE", {
+                style: "currency",
+                currency: "EUR",
+                maximumFractionDigits: 0,
+              }).format(auto.preis)}
+            </p>
+          </Link>
+        ))}
+      </div>
+    </>
+  );
+};
+
+export default Edge;
